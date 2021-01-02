@@ -14,7 +14,7 @@ func main() {
 		nextTime time.Time
 	)
 
-	if expr, err = cronexpr.Parse("* * * * * * *"); err != nil {
+	if expr, err = cronexpr.Parse("*/5 * * * * * *"); err != nil {
 		fmt.Println(err)
 		return
 	}
