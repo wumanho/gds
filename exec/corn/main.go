@@ -14,7 +14,7 @@ func main() {
 		nextTime time.Time
 	)
 
-	if expr, err = cronexpr.Parse("*/6 * * * *"); err != nil {
+	if expr, err = cronexpr.Parse("* * * * * * *"); err != nil {
 		fmt.Println(err)
 		return
 	}
@@ -23,5 +23,10 @@ func main() {
 	now = time.Now()
 	//获取下次调度时间
 	nextTime = expr.Next(now)
-	fmt.Printf("当前时间:%v\n 下次调度时间:%v",now,nextTime)
+	//设置一个定时器和回调函数
+	time.AfterFunc(nextTime.Sub(now), func() {
+		fmt.Println("被调度了，下次执行时间：",nextTime)
+	})
+
+	time.Sleep(5 * time.Second)
 }
